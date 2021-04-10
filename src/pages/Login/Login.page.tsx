@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../actions/user.actions";
@@ -13,6 +13,15 @@ const LoginPage = () => {
     setUserName(ev.currentTarget.value);
   };
 
+  const login = () => {
+    dispatch(setUser(userName));
+  };
+
+  const handleFormSubmit = (ev: FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    login();
+  };
+
   return (
     <Container className="h-100 d-flex justify-content-center align-items-center">
       <div className={[style["login-card"], "p-4"].join(" ")}>
@@ -22,7 +31,7 @@ const LoginPage = () => {
           </Row>
 
           <Row className="mt-3">
-            <Form className="w-100">
+            <Form onSubmit={handleFormSubmit} className="w-100">
               <Form.Group>
                 <Form.Label>Please enter your username</Form.Label>
                 <Form.Control
@@ -37,11 +46,7 @@ const LoginPage = () => {
             </Form>
           </Row>
           <Row className="justify-content-end">
-            <Button
-              variant="dark"
-              className="br-0"
-              onClick={() => dispatch(setUser(userName))}
-            >
+            <Button variant="dark" className="br-0" onClick={login}>
               Enter
             </Button>
           </Row>
