@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Switch, Route, useHistory } from "react-router";
 import "./App.css";
@@ -22,17 +21,15 @@ function App(props: any) {
   }, [isUserLoggedIn, browserHistory]);
 
   return (
-    <Container style={{ width: "100%", height: "100%" }}>
-      <Switch>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
+    <Switch>
+      <Route path="/login">
+        <LoginPage />
+      </Route>
 
-        <Route path="/posts">
-          <PostsPage />
-        </Route>
-      </Switch>
-    </Container>
+      <Route path="/posts">
+        <PostsPage />
+      </Route>
+    </Switch>
   );
 }
 
