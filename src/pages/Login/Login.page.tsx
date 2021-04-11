@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../actions/user.actions";
@@ -19,13 +19,15 @@ const LoginPage = () => {
 
   const handleFormSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
+    if (!userName.length) return;
+
     login();
   };
 
   return (
-    <Container className="h-100 d-flex justify-content-center align-items-center">
+    <Container className="d-flex justify-content-center h-100 align-items-center">
       <div className={[style["login-card"], "p-4"].join(" ")}>
-        <Col>
+      <Col>
           <Row>
             <h4 className="font-weight-bold">Welcome to CodeLeap network!</h4>
           </Row>
@@ -46,7 +48,12 @@ const LoginPage = () => {
             </Form>
           </Row>
           <Row className="justify-content-end">
-            <Button variant="dark" className="br-0" onClick={login}>
+            <Button
+              disabled={!userName.length}
+              variant="dark"
+              className="br-0"
+              onClick={login}
+            >
               Enter
             </Button>
           </Row>
