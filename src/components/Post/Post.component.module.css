@@ -1,0 +1,22 @@
+.post-header {
+  background: #000;
+  color: white;
+  font-weight: 600;
+  min-height: 4rem;
+}
+
+.post-header--action-button {
+  background: transparent;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.posts-page-body > div {
+  width: 80%;
+}
+
+.content-wrapper {
+  border: 1px solid lightgrey;
+  min-height: 10rem;
+}

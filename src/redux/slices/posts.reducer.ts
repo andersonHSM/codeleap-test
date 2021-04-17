@@ -1,9 +1,17 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { addPost, createPost, deletePost } from "../../actions/post.actions";
+import {
+  addPost,
+  createPost,
+  deletePost,
+  editPost,
+  fetchPosts,
+} from "../../actions/post.actions";
 import Post from "../../models/posts/post.model";
 
 let initialState = {
   status: "idle",
+  next: "",
+  previous: "",
   posts: [] as Post[],
 };
 
@@ -13,12 +21,25 @@ const postsReducer = createReducer(initialState, (builder) => {
       const post = action.payload;
 
       state.posts.push(post);
+
+      return state;
     })
-    .addCase(deletePost, (state, action) => {
-      state.posts = state.posts.filter((post) => post.id !== action.payload.id);
+    .addCase(editPost.fulfilled, () => {})
+    .addCase(fetchPosts.pending, (state, _) => {
+      state.status = "loading";
+
+      return state;
     })
-    .addCase(createPost.fulfilled, (state, action) => {
-      state.posts.push(action.payload);
+    .addCase(fetchPosts.fulfilled, (state, { payload }) => {
+      const { results: posts, ...pagesData } = payload;
+      state = {
+        ...state,
+        posts,
+        ...pagesData,
+        status: "loaded",
+      };
+
+      return state;
     });
 });
 
